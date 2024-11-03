@@ -1,0 +1,15 @@
+ipykernel
+pandas
+wfdb
+scikit-learn
+seaborn
+tqdm
+pyyaml
+wandb
+torch
+torchvision
+transformers
+ipywidgets
+einops
+h5py
+ecg-plot
