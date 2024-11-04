@@ -43,13 +43,15 @@ class trainer_wBert:
 
         train_loader = DataLoader(train_dataset, batch_size=self.train_batch_size,
                                   num_workers=self.num_workers,
-                                  drop_last=True, shuffle=False,
+                                  # drop_last=True, 
+                                  shuffle=False,
                                 #   sampler=DistributedSampler(train_dataset), 
                                   )
         
         val_loader = DataLoader(val_dataset, batch_size=self.val_batch_size,
                                 num_workers=self.num_workers,
-                                drop_last=True, shuffle=False,
+                                # drop_last=True, 
+                                shuffle=False,
                                 # sampler=DistributedSampler(val_dataset), 
                                 )
                                 
@@ -251,9 +253,9 @@ class trainer_wBert:
             # best_metric = avg_auc
             if best_metric > best_auc:
                 best_auc = best_metric
-                torch.save(self.model.module.state_dict(),
+                torch.save(self.model.state_dict(),
                             model_checkpoints_folder + self.model_name+f'_bestZeroShotAll_ckpt.pth')
-                torch.save(self.model.module.ecg_encoder.state_dict(),
+                torch.save(self.model.ecg_encoder.state_dict(),
                             model_checkpoints_folder + self.model_name+f'_bestZeroShotAll_encoder.pth')
                 
             if epoch_counter % self.checkpoint_interval == 0:
@@ -261,10 +263,10 @@ class trainer_wBert:
             
         if self.checkpoint_interval != 1:
             # save final ecg_encoder
-            torch.save(self.model.module.ecg_encoder.state_dict(),
+            torch.save(self.model.ecg_encoder.state_dict(),
                     model_checkpoints_folder + self.model_name + '_final_encoder.pth')
             # save final total model
-            torch.save(self.model.module.state_dict(),
+            torch.save(self.model.state_dict(),
                     model_checkpoints_folder + self.model_name + '_final_total.pth')
 
     def val(self, loader):
