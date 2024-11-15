@@ -14,8 +14,10 @@ import sys
 sys.path.append("../utils")
 # from utils_trainer import trainer_wBert
 from trainer import trainer_wBert
-import utils_dataset
-import utils_builder
+# import utils_dataset
+from dataset import ECG_TEXT_Dsataset
+# import utils_builder
+from builder import ECGCLIP
 
 # import wandb
 
@@ -60,14 +62,14 @@ def main():
     data_path = config['dataset']['data_path']
 
     # define image-text dataset
-    dataset = utils_dataset.ECG_TEXT_Dsataset(
+    dataset = ECG_TEXT_Dsataset(
         data_path=data_path, dataset_name=config['dataset']['dataset_name'])
     train_dataset = dataset.get_dataset(train_test='train')
     val_dataset = dataset.get_dataset(train_test='val')
 
     # building model part
     # --------------------
-    model = utils_builder.ECGCLIP(config['network'])
+    model = ECGCLIP(config['network'])
     
     '''
     you can freeze bert from last layer to first layer.

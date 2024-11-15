@@ -1,12 +1,14 @@
 # your model name
-wandb_name: 'vit_tiny_demo'
+# wandb_name: 'vit_tiny_demo'
+wandb_name: 'codemel_demo'
 
 network:
-  # ecg_model: resnet18
-  ecg_model: vit_tiny
+  ecg_model: resnet18
+  # ecg_model: vit_tiny
   num_leads: 12
   ### this part does not control builder/trainer
-  text_model: ncbi/MedCPT-Query-Encoder
+  # text_model: ncbi/MedCPT-Query-Encoder
+  text_model: pucpr/biobertpt-all
   free_layers: 6 # set 12 to freeze all layer in bert
   feature_dim: 768
 
@@ -16,8 +18,11 @@ network:
   ###
 
 dataset:
-  dataset_name: 'mimic'
-  data_path: '../output/' # add your image file path here
+  # dataset_name: 'mimic'
+  # data_path: '../output/' # add your image file path here
+  dataset_name: 'CODEmel'
+  # data_path: '\Users\katri\Downloads\git\lesaude\code\CODEmel'
+  data_path: '/home_cerberus/disk2/josefernandes/CODEmel'
 
 # params for trainer
 trainer:
