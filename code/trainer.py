@@ -19,6 +19,7 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 import yaml as yaml
+import pdb
 
 from utils_loss import clip_loss
 from zeroshot_val import zeroshot_eval
@@ -163,6 +164,7 @@ class trainer_wBert:
                     cma_loss, acc1, acc5 = clip_loss(agg_proj_img_emb, agg_proj_text_emb, device=self.device)
                     uma_loss, _, _ = clip_loss(agg_proj_ecg_emb1, agg_proj_ecg_emb2, device=self.device)
                     loss = cma_loss + uma_loss
+                    assert not torch.isnan(loss), pdb.set_trace()
 
                     # if self.device == 0:
                     # print(f'loss is {loss.item()}, acc1 is {acc1.item()}, acc5 is {acc5.item()}, cma_loss is {cma_loss.item()}, uma_loss is {uma_loss.item()}')
@@ -251,7 +253,8 @@ class trainer_wBert:
             # auc_total.append(auc)
 
             # best_metric = avg_auc
-            if best_metric > best_auc:
+            if best_metric < best_auc:
+                print('best metric {} in epoch {}'.format(best_metric, epoch_counter))
                 best_auc = best_metric
                 torch.save(self.model.state_dict(),
                             model_checkpoints_folder + self.model_name+f'_bestZeroShotAll_ckpt.pth')
