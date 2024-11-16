@@ -3,8 +3,8 @@
 wandb_name: 'codemel_demo'
 
 network:
-  ecg_model: resnet18
-  # ecg_model: vit_tiny
+  # ecg_model: resnet18
+  ecg_model: vit_tiny
   num_leads: 12
   ### this part does not control builder/trainer
   # text_model: ncbi/MedCPT-Query-Encoder
