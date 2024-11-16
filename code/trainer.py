@@ -165,7 +165,7 @@ class trainer_wBert:
                     loss = cma_loss + uma_loss
 
                     # if self.device == 0:
-                    print(f'loss is {loss.item()}, acc1 is {acc1.item()}, acc5 is {acc5.item()}, cma_loss is {cma_loss.item()}, uma_loss is {uma_loss.item()}')
+                    # print(f'loss is {loss.item()}, acc1 is {acc1.item()}, acc5 is {acc5.item()}, cma_loss is {cma_loss.item()}, uma_loss is {uma_loss.item()}')
 
                         # wandb.log({
                         #     'train_step_uma_loss': uma_loss.item(),
