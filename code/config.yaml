@@ -1,6 +1,6 @@
 # your model name
 # wandb_name: 'vit_tiny_demo'
-wandb_name: 'codemel_demo'
+wandb_name: 'vit_tiny_150'
 
 network:
   # ecg_model: resnet18
@@ -29,7 +29,7 @@ trainer:
   batch_size: 128
   val_batch_size: 512
   checkpoint_interval: 50
-  max_epochs: 20
+  max_epochs: 150
   num_workers: 8
 
 optimizer:

@@ -36,6 +36,8 @@ def main():
 
     # set up
     config = yaml.load(open("config.yaml", "r"), Loader=yaml.FullLoader)
+    with open('experiments/{}.yaml'.format(config['wandb_name']), 'w') as f:
+        yaml.dump(config, f)
 
     # if device_id == 0:
     #     run = wandb.init(

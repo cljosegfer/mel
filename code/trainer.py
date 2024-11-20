@@ -57,7 +57,8 @@ class trainer_wBert:
                                 )
                                 
         
-        model_checkpoints_folder = os.path.join('../checkpoints/')
+        # model_checkpoints_folder = os.path.join('../checkpoints/')
+        model_checkpoints_folder = os.path.join('/home_cerberus/disk2/josefernandes/mel/checkpoints/')
         # if self.device == 0:
         if not os.path.exists(model_checkpoints_folder):
             print('create directory "{}" for save checkpoint!'.format(
@@ -164,7 +165,7 @@ class trainer_wBert:
                     cma_loss, acc1, acc5 = clip_loss(agg_proj_img_emb, agg_proj_text_emb, device=self.device)
                     uma_loss, _, _ = clip_loss(agg_proj_ecg_emb1, agg_proj_ecg_emb2, device=self.device)
                     loss = cma_loss + uma_loss
-                    assert not torch.isnan(loss), pdb.set_trace()
+                    # assert not torch.isnan(loss), pdb.set_trace()
 
                     # if self.device == 0:
                     # print(f'loss is {loss.item()}, acc1 is {acc1.item()}, acc5 is {acc5.item()}, cma_loss is {cma_loss.item()}, uma_loss is {uma_loss.item()}')
@@ -261,16 +262,17 @@ class trainer_wBert:
                 torch.save(self.model.ecg_encoder.state_dict(),
                             model_checkpoints_folder + self.model_name+f'_bestZeroShotAll_encoder.pth')
                 
-            if epoch_counter % self.checkpoint_interval == 0:
-                self.save_checkpoints(epoch_counter, model_checkpoints_folder + self.model_name + f'_{epoch_counter}_ckpt.pth')
+            # if epoch_counter % self.checkpoint_interval == 0:
+            #     self.save_checkpoints(epoch_counter, model_checkpoints_folder + self.model_name + f'_{epoch_counter}_ckpt.pth')
             
         if self.checkpoint_interval != 1:
             # save final ecg_encoder
-            torch.save(self.model.ecg_encoder.state_dict(),
-                    model_checkpoints_folder + self.model_name + '_final_encoder.pth')
+            # torch.save(self.model.ecg_encoder.state_dict(),
+            #         model_checkpoints_folder + self.model_name + '_final_encoder.pth')
             # save final total model
-            torch.save(self.model.state_dict(),
-                    model_checkpoints_folder + self.model_name + '_final_total.pth')
+            # torch.save(self.model.state_dict(),
+            #         model_checkpoints_folder + self.model_name + '_final_total.pth')
+            self.save_checkpoints(epoch_counter, model_checkpoints_folder + self.model_name+'_checkpoint.pth')
 
     def val(self, loader):
         print('start validation')
