@@ -53,8 +53,10 @@ class CODE_E_T_Dataset(Dataset):
         # get raw text
         # report = self.text_csv.iloc[idx]['total_report']
         report = self.metadata[self.text_col].loc[idx]
+        csv_label = self.metadata[self.output_col].loc[idx].values
+        exam_id = self.metadata[self.exam_id_col].loc[idx]
 
-        sample = {'ecg': ecg, 'raw_text': report}
+        sample = {'ecg': ecg, 'raw_text': report, 'label': csv_label, 'exam_id': exam_id, }
 
         if self.transform:
             if self.mode == 'train':
