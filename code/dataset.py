@@ -162,3 +162,30 @@ class ECG_TEXT_Dsataset:
         assert (len(trn_ids.intersection(val_ids)) == 0), "Some IDs are present in both train and validation sets."
         assert (len(trn_ids.intersection(tst_ids)) == 0), "Some IDs are present in both train and test sets."
         assert (len(val_ids.intersection(tst_ids)) == 0), "Some IDs are present in both validation and test sets."
+
+class ECG_test_Dsataset:
+    def __init__(self, data_path, dataset_name = 'CODEtestmel'):
+        self.data_path = data_path
+        hdf5_path = os.path.join(self.data_path, 'codetestmel.h5')
+        metadata_path = os.path.join(self.data_path, 'codetestmel.csv')
+        self.dataset_name = dataset_name
+
+        print(f'Load {dataset_name} dataset!')
+        # self.train_csv = pd.read_csv(os.path.join(self.data_path, 'train.csv'), low_memory=False)
+        # self.val_csv = pd.read_csv(os.path.join(self.data_path, 'val.csv'), low_memory=False)
+        self.hdf5_file = h5py.File(hdf5_path, 'r')
+        self.metadata = pd.read_csv(metadata_path)
+    
+    def get_dataset(self, T=None):
+        print('Apply Val-stage Transform!')
+
+        Transforms = transforms.Compose([
+            transforms.ToTensor(),
+        ])
+        
+        if self.dataset_name == 'CODEtestmel':
+            dataset = CODE_E_T_Dataset(self.hdf5_file, self.metadata, 'test', transform = Transforms)
+            print(f'code test dataset length: ', len(dataset))
+        
+        return dataset
+        
